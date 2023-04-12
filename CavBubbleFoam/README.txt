@@ -11,9 +11,10 @@ which has to have been sourced after OpenFOAM installation.
 
 1. Extract both folders "CavBubbleFoam" and "exampleCase" in any location.
 2. Open a terminal in "CavBubbleFoam" and compile it via 'wmake'.
-3. Run the simulation by executing './Allrun' for serial computation or './AllrunPar' for parallel computation in "exampleCase/canalorg".
-4. If executed in parallel computation, reconstruct the simulation data using 'reconstructPar'.
-5. To view the simulation results, open the file fluid.foam using ParaView.
+3. Extract "exampleCase/canalorg/canall1000w50.zip".
+4. Run the simulation by executing './Allrun' for serial computation or './AllrunPar' for parallel computation in "exampleCase/canalorg".
+5. If executed in parallel computation, reconstruct the simulation data using 'reconstructPar'.
+6. To view the simulation results, open the file fluid.foam using ParaView.
 
 The progress of the simulation may be monitored by running 'tail -f log.CavBubbleFoam' in the simulation folder.
 Simulation settings and parameters may be altered in the text files within the simulation folder (e.g. bubble initial conditions in "constant/transportProperties" or simulation end time and field output interval in "system/controlDict").
