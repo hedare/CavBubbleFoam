@@ -1,3 +1,0 @@
-CavBubbleFoam.C
-
-EXE = $(FOAM_USER_APPBIN)/CavBubbleFoam

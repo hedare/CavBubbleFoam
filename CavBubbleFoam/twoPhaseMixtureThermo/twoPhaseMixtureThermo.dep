@@ -1,7 +1,0 @@
-$(OBJECTS_DIR)/twoPhaseMixtureThermo.o: twoPhaseMixtureThermo.dep
-twoPhaseMixtureThermo.dep: twoPhaseMixtureThermo.C
-twoPhaseMixtureThermo.dep: twoPhaseMixtureThermo.H
-$(OBJECTS_DIR)/twoPhaseMixtureThermo.o: $(EXE_DEP)
-$(OBJECTS_DIR)/twoPhaseMixtureThermo.o:
-	@SOURCE_DIR=.
-	SOURCE=twoPhaseMixtureThermo.C ; $(Ctoo)
