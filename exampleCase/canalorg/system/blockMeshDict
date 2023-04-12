@@ -1,0 +1,217 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.5                                   |
+|   \\  /    A nd           | Web:      http://www.OpenFOAM.org               |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+convertToMeters 1.0e-6;
+
+x  5000;
+y  5000;
+Rc   85;
+R    20;
+d    80;
+z0 5e-5;
+z  5e-2;
+
+Nxy 125;
+NRc   2;
+NRcR  3;
+Nd2R  1;
+
+Nx #calc "$Nxy-$NRcR";
+Ny #calc "$Nxy-$NRc";
+
+x1  #calc "$Rc";
+x2  #calc "$Rc+$R*(1-sqrt(2.0)/2)";
+x3  #calc "$Rc+$R";
+xc1 #calc "$Rc+$R*(1-sqrt(3.0)/2)";
+xc2 #calc "$Rc+$R/2";
+
+y1  #calc "-$R";
+y2  #calc "-$R*(1-sqrt(2.0)/2)";
+y3 0;
+y4  #calc "$Rc";
+y5  #calc "$y";
+yc1 #calc "-$R/2";
+yc2 #calc "-$R*(1-sqrt(3.0)/2)";
+
+ny1  #calc  "-$y1-$d";
+ny2  #calc  "-$y2-$d";
+ny3  #calc  "-$y3-$d";
+ny4  #calc  "-$y4-$d";
+ny5  #calc  "-$y5-$d";
+nyc1 #calc "-$yc1-$d";
+nyc2 #calc "-$yc2-$d";
+
+z1  #calc  "$z0+($z-$z0)*$x1/$x";
+z2  #calc  "$z0+($z-$z0)*$x2/$x";
+z3  #calc  "$z0+($z-$z0)*$x3/$x";
+zc1 #calc "$z0+($z-$z0)*$xc1/$x";
+zc2 #calc "$z0+($z-$z0)*$xc2/$x";
+
+nz0  #calc  "-$z0";
+nz   #calc   "-$z";
+nz1  #calc  "-$z1";
+nz2  #calc  "-$z2";
+nz3  #calc  "-$z3";
+nzc1 #calc "-$zc1";
+nzc2 #calc "-$zc2";
+
+vertices        
+(
+    (0   $ny1 $nz0)
+    ($x1 $ny1 $nz1)
+    ($x2 $ny2 $nz2)
+    ($x3 $ny3 $nz3)
+    ($x  $ny3  $nz)
+    (0   $ny4 $nz0)
+    ($x3 $ny4 $nz3)
+    ($x  $ny4  $nz)
+    (0   $ny5 $nz0)
+    ($x3 $ny5 $nz3)
+    ($x  $ny5  $nz)
+
+    (0   $y1 $nz0)
+    ($x1 $y1 $nz1)
+    ($x2 $y2 $nz2)
+    ($x3 $y3 $nz3)
+    ($x  $y3  $nz)
+    (0   $y4 $nz0)
+    ($x3 $y4 $nz3)
+    ($x  $y4  $nz)
+    (0   $y5 $nz0)
+    ($x3 $y5 $nz3)
+    ($x  $y5  $nz)
+
+    (0   $ny1 $z0)
+    ($x1 $ny1 $z1)
+    ($x2 $ny2 $z2)
+    ($x3 $ny3 $z3)
+    ($x  $ny3  $z)
+    (0   $ny4 $z0)
+    ($x3 $ny4 $z3)
+    ($x  $ny4  $z)
+    (0   $ny5 $z0)
+    ($x3 $ny5 $z3)
+    ($x  $ny5  $z)
+
+    (0   $y1 $z0)
+    ($x1 $y1 $z1)
+    ($x2 $y2 $z2)
+    ($x3 $y3 $z3)
+    ($x  $y3  $z)
+    (0   $y4 $z0)
+    ($x3 $y4 $z3)
+    ($x  $y4  $z)
+    (0   $y5 $z0)
+    ($x3 $y5 $z3)
+    ($x  $y5  $z)
+
+);
+
+blocks          
+(
+    hex (8 9 6 5 30 31 28 27)     ($NRcR $Ny   1) simpleGrading (1 1 1)
+    hex (9 10 7 6 31 32 29 28)    ($Nx   $Ny   1) simpleGrading (1 1 1)
+    hex (6 7 4 3 28 29 26 25)     ($Nx   $NRc  1) simpleGrading (1 1 1)
+    hex (5 6 3 2 27 28 25 24)     ($NRcR $NRc  1) simpleGrading (1 1 1)
+    hex (5 2 1 0 27 24 23 22)     ($NRc  $NRcR 1) simpleGrading (1 1 1)
+    hex (0 1 12 11 22 23 34 33)   ($NRc  $Nd2R 1) simpleGrading (1 1 1)
+    hex (11 12 13 16 33 34 35 38) ($NRc  $NRcR 1) simpleGrading (1 1 1)
+    hex (13 14 17 16 35 36 39 38) ($NRcR $NRc  1) simpleGrading (1 1 1)
+    hex (14 15 18 17 36 37 40 39) ($Nx   $NRc  1) simpleGrading (1 1 1)
+    hex (17 18 21 20 39 40 43 42) ($Nx   $Ny   1) simpleGrading (1 1 1)
+    hex (16 17 20 19 38 39 42 41) ($NRcR $Ny   1) simpleGrading (1 1 1)
+);
+
+edges           
+(
+    arc 1 2   ($xc1 $nyc1 $nzc1)
+    arc 2 3   ($xc2 $nyc2 $nzc2)
+    arc 12 13 ($xc1  $yc1 $nzc1)
+    arc 13 14 ($xc2  $yc2 $nzc2)
+
+    arc 23 24 ($xc1 $nyc1 $zc1)
+    arc 24 25 ($xc2 $nyc2 $zc2)
+    arc 34 35 ($xc1  $yc1 $zc1)
+    arc 35 36 ($xc2  $yc2 $zc2)
+);
+
+patches         
+(
+    wall outside
+    (
+        (8 9 31 30)
+        (9 10 32 31)
+        (10 7 29 32)
+        (7 4 26 29)
+
+        (15 18 40 37)
+        (18 21 43 40)
+        (19 20 42 41)
+        (20 21 43 42)
+    )
+    wall wall 
+    (
+        (3 4 26 25)
+        (2 3 25 24)
+        (2 1 23 24)
+        (1 12 34 23)
+        (12 13 35 34)
+        (13 14 36 35)
+        (14 15 37 36)
+    )
+    symmetryPlane left
+    (
+        (8 5 27 30)
+        (5 0 22 27)
+        (0 11 33 22)
+        (11 16 38 33)
+        (16 19 41 38)
+    )
+    wedge front
+    (
+        (8 9 6 5)
+        (9 10 7 6)
+        (6 7 4 3)
+        (5 6 3 2)
+        (5 2 1 0)
+        (0 1 12 11)
+        (11 12 13 16)
+        (13 14 17 16)
+        (14 15 18 17)
+        (17 18 21 20)
+        (16 17 20 19)
+    )
+    wedge back
+    (
+        (30 31 28 27)
+        (31 32 29 28)
+        (28 29 26 25)
+        (27 28 25 24)
+        (27 24 23 22)
+        (22 23 34 33)
+        (33 34 35 38)
+        (35 36 39 38)
+        (36 37 40 39)
+        (39 40 43 42)
+        (38 39 42 41)
+    )
+);
+
+mergePatchPairs 
+(
+);
+
+// ************************************************************************* //

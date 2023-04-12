@@ -1,0 +1,28 @@
+./Allclean
+
+#!/bin/sh
+cd ${0%/*} || exit 1    # run from this directory
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+# Get application name
+application=`getApplication`
+
+runApplication gmshToFoam *.msh
+#runApplication ./makeMesh
+
+sed -i ':a;N;$!ba;s/front\n    {\n        type            patch/front\n    {\n        type            wedge/' constant/polyMesh/boundary
+sed -i ':a;N;$!ba;s/back\n    {\n        type            patch/back\n    {\n        type            wedge/' constant/polyMesh/boundary
+sed -i ':a;N;$!ba;s/left\n    {\n        type            patch/left\n    {\n        type            symmetryPlane/' constant/polyMesh/boundary
+
+rm -R 0
+cp -rf 0.org/ 0/
+cp constant/kinematicCloudPositions 0/lagrangian/kinematicCloud/positions
+sed -i 's/value           uniform 1/value           uniform 0/' 0/alpha.water
+runApplication ./../initbubble/initbubble
+sed -i 's/value           uniform 0/value           uniform 1/' 0/alpha.water
+
+runApplication $(getApplication)
+
+# ----------------------------------------------------------------- end-of-file
