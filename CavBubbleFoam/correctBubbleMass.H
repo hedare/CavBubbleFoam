@@ -5,7 +5,7 @@ if (correctBubbleMass)
     rho2 = rho2 * bubblem0 / bubblem;
     if (bubblePhase == 0)
     {
-        if (bubbleV < bubbleV0)
+        if (bubbleV < bubbleV0 && runTime.value() > 1e-6)
         {
             bubblePhase = 1;
             rho2 = rho2 * pfact;
