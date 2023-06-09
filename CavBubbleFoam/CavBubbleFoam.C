@@ -67,9 +67,6 @@ int main(int argc, char *argv[])
     #include "setInitialDeltaT.H"
 
     volScalarField& p = mixture.p();
-    //volScalarField& T = mixture.T();
-    //const volScalarField& psi1 = mixture.thermo1().psi();
-    //const volScalarField& psi2 = mixture.thermo2().psi();
 
     volScalarField psi1 = mixture.thermo1().psi();
     volScalarField psi2 = mixture.thermo2().psi();
@@ -134,7 +131,6 @@ int main(int argc, char *argv[])
             }
 
             mu = mixture.nu()*rho;
-            //gradp = fvc::grad(p_rgh);
             Info << "Evolving " << kinematicCloud.name() << endl;
             kinematicCloud.evolve();
         }

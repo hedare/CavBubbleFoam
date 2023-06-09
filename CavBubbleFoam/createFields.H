@@ -11,21 +11,7 @@ volScalarField p_rgh
     ),
     mesh
 );
-/*
-volVectorField gradp
-(
-    IOobject
-    (
-        "gradp",
-        runTime.timeName(),
-        mesh,
-        IOobject::NO_READ,
-        IOobject::AUTO_WRITE
-    ),
-    fvc::grad(p_rgh)
-);
-gradp.write();
-*/
+
 volScalarField p_g
 (
     IOobject
