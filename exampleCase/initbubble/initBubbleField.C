@@ -184,21 +184,7 @@ int main(int argc, char *argv[])
     p.write();
 
     inkMap.write();
-
-    /*volVectorField gradp
-    (
-        IOobject
-        (
-            "gradp",
-            runTime.timeName(),
-            mesh,
-            IOobject::NO_READ,
-            IOobject::AUTO_WRITE
-        ),
-        fvc::grad(p_rgh)
-    );
-    gradp.write();
-    */
+    
     Info<< "End\n" << endl;
 
     return(0);
