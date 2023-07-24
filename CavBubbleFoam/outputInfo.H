@@ -5,7 +5,7 @@
         
         infovstime << runTime.timeName() << ","
                    << bubbleV << ","
-                   << Foam::gSum(mesh.V()*alpha2p.field()) << ","
+                   << Foam::gSum(mesh.V()*alpha2p.field())/bubbleV << ","
                    << bubblem << nl;
 
         infovstime.flush();
